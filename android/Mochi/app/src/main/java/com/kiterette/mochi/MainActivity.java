@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     String id = tid.getText().toString();
                     String name =tname.getText().toString();
                     String status = tstatus.getText().toString();
-                    URL url = new URL(murl + "/add?id=" + id + "&name=" + name + "&status=" + status);
+                    URL url = new URL(murl + "/add?id=" + id + "&status=" + status);
                     HttpURLConnection con = (HttpURLConnection)url.openConnection();
                     String str = InputStreamToString(con.getInputStream());
                 } catch(Exception ex) {
