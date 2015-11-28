@@ -10,6 +10,14 @@ MySQL 5.5
 /server $npm install
 ```
 
+## Deploy
+サーバにSSHして
+```
+$ git pull
+$ cd server
+$ npm start
+```
+
 # Android
 ## Requirements
 Android Studio 1.3
