@@ -13,14 +13,14 @@ var connection = mysql.createConnection({
 /* GET : Get all user status */
 router.get('/', function(req, res, next) {
   connection.query('SELECT * FROM `User`', function (error, results, fields) {
-    res.send(JSON.stringify(results));
+    res.send('{' + results + '}');
   });
 });
 
 /* GET : Get all user status belonging to the hid */
 router.get('/hid', function(req, res, next) {
   connection.query('SELECT * FROM `User` WHERE Hid = ' + req.query.hid, function (error, results, fields) {
-    res.send(JSON.stringify(results));
+    res.send('{' + results + '}');
   });
 });
 
