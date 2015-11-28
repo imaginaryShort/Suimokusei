@@ -28,3 +28,24 @@ Android 5.0 Lollipop
 Raspberry pi 2
 Raspbian
 Python 2.7.3
+
+# DataBase
+Table: householdid
+HouseholdId Integer
+HouseName   String
+
+Table: User
+Id    Integer
+Name  String
+Status      ENUM('still','walk','run','bicycle','sleep','meal')
+Updated     TIMESTAMP
+
+# API
+Userテーブルの全データを出力
+GET http://imaginaryshort.com:7000/status
+特定のHouseholdIdに属するUserのデータを出力
+GET http://imaginaryshort.com:7000/status?hid={value}
+POST http://imaginaryshort.com:7000/status?mynumber={value}&status={value}
+
+GET http://imaginaryshort.com:7000/householdid?={value}
+POST http://imaginarysohrt.com:7000/householdid?={value}
