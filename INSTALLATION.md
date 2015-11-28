@@ -30,22 +30,23 @@ Raspbian
 Python 2.7.3
 
 # DataBase
-Table: householdid
-HouseholdId Integer
+Table: household
+Hid         Integer
 HouseName   String
 
 Table: User
-Id    Integer
-Name  String
+Id          Integer
+Name        String
+Hid         Integer
 Status      ENUM('still','walk','run','bicycle','sleep','meal')
 Updated     TIMESTAMP
 
 # API
 Userテーブルの全データを出力
-GET http://imaginaryshort.com:7000/status
-特定のHouseholdIdに属するUserのデータを出力
-GET http://imaginaryshort.com:7000/status?hid={value}
-POST http://imaginaryshort.com:7000/status?mynumber={value}&status={value}
+GET http://imaginaryshort.com:7000/
 
-GET http://imaginaryshort.com:7000/householdid?={value}
-POST http://imaginarysohrt.com:7000/householdid?={value}
+特定のHouseholdIdに属するUserのデータを出力
+GET http://imaginaryshort.com:7000/hid?hid={value}
+
+特定のユーザの状態をアップデートする
+POST http://imaginaryshort.com:7000/?mynumber={value}&status={value}
