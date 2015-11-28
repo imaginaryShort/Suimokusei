@@ -14,8 +14,8 @@ MySQL 5.5
 サーバにSSHして
 ```
 $ git pull
-$ cd server
-$ npm start
+$ cd KB_03/server
+$ forever start -c npm\ start app.js
 ```
 
 # Android
