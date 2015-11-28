@@ -12,21 +12,21 @@ var connection = mysql.createConnection({
 
 /* GET : Get all user status */
 router.get('/', function(req, res, next) {
-  connection.query('SELECT * FROM `User`', function (error, results, fields) {
+  connection.query('SELECT * FROM `Status`', function (error, results, fields) {
     res.send(JSON.stringify({users: results}));
   });
 });
 
 /* GET : Get all user status belonging to the hid */
 router.get('/hid', function(req, res, next) {
-  connection.query('SELECT * FROM `User` WHERE Hid = ' + req.query.hid, function (error, results, fields) {
+  connection.query('SELECT * FROM `Status` WHERE Hid = ' + req.query.hid, function (error, results, fields) {
     res.send(JSON.stringify({users: results}));
   });
 });
 
-/* GET : Update user status */
+/* GET : Update status */
 router.get('/add', function(req, res) {
-  connection.query('INSERT INTO `User` (Id, Name, Status) VALUES (' + req.query.id + ',\'' + req.query.name + '\',' + '\'' + req.query.status + '\') ON DUPLICATE KEY UPDATE Status = \'' + req.query.status + '\', Updated = CURRENT_TIMESTAMP', function (error, results, fields) {
+  connection.query('INSERT INTO `Status` (UserId, Status) VALUES (' + req.query.id + ',\'' + req.query.status + '\') ON DUPLICATE KEY UPDATE Status = \'' + req.query.status + '\', Updated = CURRENT_TIMESTAMP', function (error, results, fields) {
     res.sendStatus(200);
   });
 });

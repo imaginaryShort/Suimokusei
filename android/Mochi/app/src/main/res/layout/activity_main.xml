@@ -9,6 +9,20 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="HomeId"
+        android:id="@+id/hid_textView"
+        android:layout_below="@+id/name_textView"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hid_editText"
+        android:text="0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Id"
         android:id="@+id/id_textView"
         android:layout_below="@+id/name_textView"
@@ -47,14 +61,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/status_editText"
         android:text="refrigerator" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:id="@+id/register_button"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="68dp" />
 
 </LinearLayout>

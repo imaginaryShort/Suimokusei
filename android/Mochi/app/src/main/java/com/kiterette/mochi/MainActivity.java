@@ -9,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -36,52 +34,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         tid = (TextView)findViewById(R.id.id_editText);
         tname = (TextView)findViewById(R.id.name_editText);
         tstatus = (TextView)findViewById(R.id.status_editText);
-
-        //Button b = (Button)findViewById(R.id.button);
-        //b.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View view) {
-        //        new Thread(new Runnable() {
-        //            @Override
-        //            public void run() {
-        //                try {
-        //                    URL url = new URL(murl);
-        //                    HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        //                    String str = InputStreamToString(con.getInputStream());
-        //                    JSONObject json = new JSONObject(str);
-        //                    JSONArray users = json.getJSONArray("users");
-        //                    for(int i=0; i<users.length()-1; i++){
-        //                        JSONObject user = users.getJSONObject(0);
-        //                        Log.d("Log", user.optString("Name"));
-        //                        Log.d("Log", user.optString("Status"));
-        //                    }
-        //                } catch(Exception ex) {
-        //                    System.out.println(ex);
-        //                }
-        //            }
-        //        }).start();
-        //    }
-        //});
-
-
-        Button b2 = (Button)findViewById(R.id.register_button);
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            URL url = new URL(murl + "/add?id=100&name=teseeeeet");
-                            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-                            String str = InputStreamToString(con.getInputStream());
-                        } catch(Exception ex) {
-                            System.out.println(ex);
-                        }
-                    }
-                }).start();
-            }
-        });
     }
 
     @Override
@@ -163,7 +115,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     URL url = new URL(murl + "/add?id=" + id + "&name=" + name + "&status=" + status);
                     HttpURLConnection con = (HttpURLConnection)url.openConnection();
                     String str = InputStreamToString(con.getInputStream());
-                    Log.d("TAG", str);
                 } catch(Exception ex) {
                     System.out.println(ex);
                 }
