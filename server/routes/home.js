@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
 
 /* GET : add new homeid and home */
 router.get('/add', function(req, res, next) {
-  connection.query('INSERT INTO `Home` (Name) VALUES (' + req.query.name + ')', function (error, results, fields) {
+  connection.query('INSERT INTO `Home` (Name) VALUES (\'' + req.query.name + '\')', function (error, results, fields) {
     connection.query('SELECT last_insert_id() FROM `Home`', function (error, results, fields) {
       res.send(JSON.stringify({results: results}));
     });
