@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -18,7 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-
+    String murl = "http://imaginaryshort.com:7000";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +33,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            // 大阪の天気予報XMLデータ
-                            URL url = new URL("http://imaginaryshort.com:7000/");
+                            URL url = new URL(murl);
                             HttpURLConnection con = (HttpURLConnection)url.openConnection();
                             String str = InputStreamToString(con.getInputStream());
                             JSONObject json = new JSONObject(str);
-                            Log.d("Log", json.toString());
+                            JSONArray users = json.getJSONArray("users");
+                            for(int i=0; i<users.length()-1; i++){
+                                JSONObject user = users.getJSONObject(0);
+                                Log.d("Log", user.optString("Name"));
+                                Log.d("Log", user.optString("Status"));
+                            }
                         } catch(Exception ex) {
                             System.out.println(ex);
                         }
@@ -46,6 +51,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        Button b2 = (Button)findViewById(R.id.button2);
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            URL url = new URL(murl + "/add?id=100&name=teseeeeet");
+                            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+                            String str = InputStreamToString(con.getInputStream());
+                        } catch(Exception ex) {
+                            System.out.println(ex);
+                        }
+                    }
+                }).start();
+            }
+        });
     }
 
     // InputStream -> String
