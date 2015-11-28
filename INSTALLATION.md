@@ -50,3 +50,6 @@ GET http://imaginaryshort.com:7000/hid?hid={value}
 
 特定のユーザの状態をアップデートする
 POST http://imaginaryshort.com:7000/?mynumber={value}&status={value}
+
+# Sample POST
+curl -F "id=1" -F "name=test" -F "status=still" http://imaginaryshort.com:7000/
