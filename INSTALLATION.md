@@ -48,13 +48,16 @@ Updated     TIMESTAMP
 
 # API
 Userテーブルの全データを出力
+
 GET http://imaginaryshort.com:7000/
 
 特定のHouseholdIdに属するUserのデータを出力
+
 GET http://imaginaryshort.com:7000/hid?hid={value}
 
 特定のユーザの状態をアップデートする
-POST http://imaginaryshort.com:7000/?mynumber={value}&status={value}
+
+GET http://imaginaryshort.com:7000/add?mynumber={value}&status={value}
 
 # Add sample data
 http://imaginaryshort.com:7000/add?id=1&name=test
