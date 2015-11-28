@@ -26,7 +26,7 @@ router.get('/hid', function(req, res, next) {
 
 /* GET : Update user status */
 router.get('/add', function(req, res) {
-  connection.query('INSERT INTO `User` (Id, Name, Status) VALUES (' + req.query.id + ',\'' + req.query.name + '\',' + '\'' + req.query.status + '\') ON DUPLICATE KEY UPDATE Status = \'' + req.query.status + '\'', function (error, results, fields) {
+  connection.query('INSERT INTO `User` (Id, Name, Status) VALUES (' + req.query.id + ',\'' + req.query.name + '\',' + '\'' + req.query.status + '\') ON DUPLICATE KEY UPDATE Status = \'' + req.query.status + '\', Updated = CURRENT_TIMESTAMP', function (error, results, fields) {
     res.sendStatus(200);
   });
 });
