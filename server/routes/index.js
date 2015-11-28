@@ -24,8 +24,8 @@ router.get('/hid', function(req, res, next) {
   });
 });
 
-/* POST : Update user status */
-router.post('/', function(req, res) {
+/* GET : Update user status */
+router.get('/add', function(req, res) {
   connection.query('INSERT INTO `User` (Id, Name, Status) VALUES (' + req.query.id + ',\'' + req.query.name + '\',' + '\'still\')', function (error, results, fields) {
     res.sendStatus(200);
   });
