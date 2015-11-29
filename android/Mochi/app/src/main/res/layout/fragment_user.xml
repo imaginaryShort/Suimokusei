@@ -15,8 +15,20 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/treeNameEditText"
+        android:id="@+id/userNameEditText"
         android:text="yuki" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LED点灯箇所の指定" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userOrderEditText"
+        android:text="1" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -28,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="次へ"
-            android:id="@+id/next_button" />
+            android:id="@+id/user_next_button" />
 
     </LinearLayout>
 </LinearLayout>
