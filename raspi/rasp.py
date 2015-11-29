@@ -158,7 +158,7 @@ def parse_each_user_data(buf, userID):
 
 def main():
 	jobConfigs = [
-		JobConfig(CronTab("* * * * *"), stat_update)
+		JobConfig(CronTab("* * * * *"), stat_update),
 		JobConfig(CronTab("* * * * *"), led_update)
 	]
 	p = Pool(len(jobConfigs))
