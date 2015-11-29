@@ -1,10 +1,8 @@
 import requests as rq
 import json
 
-from crontab import CronTab
 from datetime import datetime, timedelta
 import math
-from multiprocessing import Pool
 import random
 
 import schedule
@@ -54,22 +52,6 @@ class NeoPixelConfig(object):
 
 	def set_color_by_order(self, order, status):
 		c = Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-		
-		#if status is 'still':
-		#	test
-		#elif status is 'walk':
-		#	test
-		#elif status is 'run':
-		#	test
-		#elif status is 'bicycle':
-		#	test
-		#elif status is 'sleep':
-		#	test
-		#elif status is 'meal':
-		#	test
-		#elif status is 'refrigerator':
-		#	test
-
 		self.strip.setPixelColor(order-1, c)
 		self.strip.show()
 
@@ -127,12 +109,7 @@ def stat_update():
 
 	for usr in dat['users']:
 		if usr['UserId'] not in usr_stat_cache or usr_stat_cache[usr['UserId']] != usr['Updated']:
-			#usr_stat_cache[usr['UserId']] = usr['Updated']
-			#usr_stat_list[usr['UserId']] = usr['Status']
-			##usr_order_list[usr['UserId']] = 
-			#
-			#usr_led_degree[usr['UserId']] = 1
-			neoPixelConfig.set_color_by_order(usr['Order'], usr['UserId'])
+		    neoPixelConfig.set_color_by_order(usr['Order'], usr['UserId'])
 
 def led_update():
 	print('led_update is running')
@@ -145,26 +122,11 @@ ALL_IN_DA_HOUSE = '/hid?hid='
 ABOUT_A_USER	= '/add?mynumber='
 UPD_A_USER_STAT = '&status='
 
-# only debugging use function
-#def get_all_user_data():
-#	query = rq.get(SERVER_DOMAIN)
-#	buf = json.loads(query.text)
-#	return buf
-
 # a function to get data of users in a house
 def get_homer_data(homeID):
 	query = rq.get(SERVER_DOMAIN + ALL_IN_DA_HOUSE + str(homeID))
 	buf = json.loads(query.text)
 	return buf
-
-# a function to update user status
-#def upd_user_status_data(userID, status):
-#	query = rq.get(SERVER_DOMAIN + ABOUT_A_USER + str(userID)
-#			+ UPD_A_USER_STAT + status)
-#	if query.text is 'OK':
-#		return True
-#	else:
-#		return False
 
 # get one element from users info array
 def parse_each_user_data(buf, userID):
@@ -173,20 +135,6 @@ def parse_each_user_data(buf, userID):
 			return buf['users'][x]
 
 def main():
-	#jobConfigs = [
-	#	JobConfig(CronTab("* * * * *"), stat_update),
-	#	JobConfig(CronTab("*/2 * * * *"), led_update)
-	#]
-	#p = Pool(len(jobConfigs))
-	#try:
-	#	p.map(job_controller, jobConfigs)
-	#except KeyboardInterrupt:
-	#	neoPixelConfig.turnoff_all()
-	#
-	#stat_update()
-	#led_update()
-
-
 	schedule.every(0.5).minutes.do(stat_update)
 	#schedule.every(1).minutes.do(led_update)
 	while True:
