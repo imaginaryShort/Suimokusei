@@ -1,10 +1,10 @@
 import requests as rq
 import json
 
-#from crontab import CronTab
+from crontab import CronTab
 from datetime import datetime, timedelta
 import math
-#from multiprocessing import Pool
+from multiprocessing import Pool
 import random
 
 import schedule
