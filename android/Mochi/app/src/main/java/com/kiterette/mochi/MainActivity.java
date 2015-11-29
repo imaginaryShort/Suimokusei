@@ -10,6 +10,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -113,7 +116,11 @@ public class MainActivity extends Activity implements MainFragment.OnFragmentInt
                     Log.d("TEST", url.toString());
                     HttpURLConnection con = (HttpURLConnection)url.openConnection();
                     String str = InputStreamToString(con.getInputStream());
-                    Log.d("Log", str);
+
+                    JSONObject json = new JSONObject(str);
+                    JSONArray users = json.getJSONArray("results");
+                    JSONObject user = users.getJSONObject(0);
+                    UserId = String.valueOf(user.optInt("last_insert_id()"));
                 } catch(Exception ex) {
                     System.out.println(ex);
                 }
@@ -161,6 +168,7 @@ public class MainActivity extends Activity implements MainFragment.OnFragmentInt
             public void run() {
                 try {
                     URL url = new URL(murl + "/add?id=" + id + "&status=" + status);
+                    Log.d("URL", url.toString());
                     HttpURLConnection con = (HttpURLConnection)url.openConnection();
                     String str = InputStreamToString(con.getInputStream());
                     Log.d("HTTP", str);
