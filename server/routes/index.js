@@ -12,14 +12,14 @@ var connection = mysql.createConnection({
 
 /* GET : Get all user status */
 router.get('/', function(req, res, next) {
-  connection.query('SELECT Status.UserId, User.HomeId, User.Name, Status.Status, Status.Updated FROM Status INNER JOIN User ON Status.UserId = User.Id', function (error, results, fields) {
+  connection.query('SELECT Status.UserId, User.HomeId, User.Name, User.Order, Status.Status, Status.Updated FROM Status INNER JOIN User ON Status.UserId = User.Id', function (error, results, fields) {
     res.send(JSON.stringify({users: results}));
   });
 });
 
 /* GET : Get all user status belonging to the hid */
 router.get('/hid', function(req, res, next) {
-  connection.query('SELECT Status.UserId, User.HomeId, User.Name, Status.Status, Status.Updated FROM Status INNER JOIN User ON Status.UserId = User.Id WHERE HomeId = ' + req.query.hid, function (error, results, fields) {
+  connection.query('SELECT Status.UserId, User.HomeId, User.Name, User.Order, Status.Status, Status.Updated FROM Status INNER JOIN User ON Status.UserId = User.Id WHERE HomeId = ' + req.query.hid, function (error, results, fields) {
     res.send(JSON.stringify({users: results}));
   });
 });
