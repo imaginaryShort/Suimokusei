@@ -1,10 +1,10 @@
 import requests as rq
 import json
 
-#from crontab import CronTab
+from crontab import CronTab
 from datetime import datetime, timedelta
 import math
-#from multiprocessing import Pool
+from multiprocessing import Pool
 import random
 
 import schedule
@@ -53,24 +53,24 @@ class NeoPixelConfig(object):
 			time.sleep(20/1000.0)
 
 	def set_color_by_order(self, order, status):
-		#c = Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+		c = Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 		
-		if status is 'still':
-			test
-		elif status is 'walk':
-			test
-		elif status is 'run':
-			test
-		elif status is 'bicycle':
-			test
-		elif status is 'sleep':
-			test
-		elif status is 'meal':
-			test
-		elif status is 'refrigerator':
-			test
+		#if status is 'still':
+		#	test
+		#elif status is 'walk':
+		#	test
+		#elif status is 'run':
+		#	test
+		#elif status is 'bicycle':
+		#	test
+		#elif status is 'sleep':
+		#	test
+		#elif status is 'meal':
+		#	test
+		#elif status is 'refrigerator':
+		#	test
 
-		self.strip.setPixelColor(order, c)
+		self.strip.setPixelColor(order-1, c)
 		self.strip.show()
 
 	def turnoff_all(self):
@@ -85,40 +85,40 @@ class NeoPixelConfig(object):
 							  random.randint(0, 255)))
 		self.strip.show()
 
-	def set_color_by_status(self, order, userid):
-		for x in range(1000):
-			c = 255 * math.sin(2 * 3.14 / 1000 * x)
+	def set_color_by_status(self):
+		for x in range(100):
+			c = 255 * math.sin(math.pi / 100 * x)
 			x = math.fabs(c) + 1
-			self.strip.setPixelColor(order-1, Color(int(255/x) ,int(0/x), int(0/x)))
+			self.strip.setPixelColor(1, Color(int(255/x) ,int(0/x), int(0/x)))
 			self.strip.show()
-			time.sleep(0.001)
+			time.sleep(0.1)
 
-#class JobConfig(object):
-#	def __init__(self, crontab, job):
-#		self._crontab = crontab
-#		self.job = job
-#
-#	def schedule(self):
-#		crontab = self._crontab
-#		return datetime.now() + timedelta(seconds = math.ceil(crontab.next()))
-#
-#	def next(self):
-#		crontab = self._crontab
-#		return math.ceil(crontab.next())
-#
-#def job_controller(jobConfig):
-#	while True:
-#		try:
-#			print("coming up\tschedule:%s" %jobConfig.schedule().strftime("%Y-%m-%d %H:%M:%S"))
-#			time.sleep(jobConfig.next())
-#			print("execute")
-#			jobConfig.job()
-#			print("execute done")
-#
-#		except KeyboardInterrupt:
-#			break
-#
-#	print("well done")
+class JobConfig(object):
+	def __init__(self, crontab, job):
+		self._crontab = crontab
+		self.job = job
+
+	def schedule(self):
+		crontab = self._crontab
+		return datetime.now() + timedelta(seconds = math.ceil(crontab.next()))
+
+	def next(self):
+		crontab = self._crontab
+		return math.ceil(crontab.next())
+
+def job_controller(jobConfig):
+	while True:
+		try:
+			print("coming up\tschedule:%s" %jobConfig.schedule().strftime("%Y-%m-%d %H:%M:%S"))
+			time.sleep(jobConfig.next())
+			print("execute")
+			jobConfig.job()
+			print("execute done")
+
+		except KeyboardInterrupt:
+			break
+
+	print("well done")
 
 def stat_update():
 	print('stat_update is running')
@@ -127,16 +127,17 @@ def stat_update():
 
 	for usr in dat['users']:
 		if usr['UserId'] not in usr_stat_cache or usr_stat_cache[usr['UserId']] != usr['Updated']:
-			usr_stat_cache[usr['UserId']] = usr['Updated']
-			usr_stat_list[usr['UserId']] = usr['Status']
-			#usr_order_list[usr['UserId']] = 
-			
-			usr_led_degree[usr['UserId']] = 1
-			#neoPixelConfig.set_color_by_order(usr['Order'], usr['UserId'])
+			#usr_stat_cache[usr['UserId']] = usr['Updated']
+			#usr_stat_list[usr['UserId']] = usr['Status']
+			##usr_order_list[usr['UserId']] = 
+			#
+			#usr_led_degree[usr['UserId']] = 1
+			neoPixelConfig.set_color_by_order(usr['Order'], usr['UserId'])
 
 def led_update():
 	print('led_update is running')
-	neoPixelConfig.set_color_by_status(1, 0)
+	while True:
+		neoPixelConfig.set_color_by_status()
 
 # Server access information:
 SERVER_DOMAIN	= 'http://imaginaryshort.com:7000'
@@ -173,23 +174,28 @@ def parse_each_user_data(buf, userID):
 
 def main():
 	#jobConfigs = [
-	#	JobConfig(CronTab("* * * * *"), stat_update)
+	#	JobConfig(CronTab("* * * * *"), stat_update),
+	#	JobConfig(CronTab("*/2 * * * *"), led_update)
 	#]
 	#p = Pool(len(jobConfigs))
 	#try:
 	#	p.map(job_controller, jobConfigs)
 	#except KeyboardInterrupt:
-	#	pass
+	#	neoPixelConfig.turnoff_all()
+	#
+	#stat_update()
+	#led_update()
+
+
 	schedule.every(0.5).minutes.do(stat_update)
-	schedule.every(1).minutes.do(led_update)
+	#schedule.every(1).minutes.do(led_update)
 	while True:
 		try:
 			schedule.run_pending()
-			time.sleep(1)
+			time.sleep(0.5)
 		except KeyboardInterrupt:
+			neoPixelConfig.turnoff_all()
 			break
-
-	neoPixelConfig.turnoff_all()
 
 neoPixelConfig = NeoPixelConfig()
 if __name__ == "__main__":
