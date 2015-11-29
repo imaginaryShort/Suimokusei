@@ -31,33 +31,46 @@ $ forever start -c npm\ start app.js
 * Python 2.7.3
 
 # DataBase
-```
-Table: household
-Hid         Integer
-HouseName   String
-```
+<table>
+<tr><th>Status</th><td>Type</td><td>Details</td></tr>
+<tr><td>UserId</td><td>INTEGER</td><td>Primary key</td></tr>
+<tr><td>Status</td><td>ENUM('', 'still', 'walk', 'run', 'bicycle', 'sleep', 'meal', 'refrigerator')</td><td></td></tr>
+<tr><td>Updated</td><td>TIMESTAMP</td><td></td></tr>
+</table>
 
-```
-Table: User
-Id          Integer
-Name        String
-Hid         Integer
-Status      ENUM('still','walk','run','bicycle','sleep','meal')
-Updated     TIMESTAMP
-```
+<table>
+<tr><th>User</th><td>Type</td><td>Details</td></tr>
+<tr><td>Id</td><td>INTEGER</td><td>Auto increment, Primary key</td></tr>
+<tr><td>Name</td><td>TEXT</td><td></td></tr>
+<tr><td>HomeId</td><td>INTEGER</td><td></td></tr>
+<tr><td>Order</td><td>INTEGER</td><td></td></tr>
+<tr><td>Updated</td><td>TIMESTAMP</td><td></td></tr>
+</table>
+
+<table>
+<tr><th>Home</th><td>Type</td><td>Details</td></tr>
+<tr><td>Id</td><td>INTEGER</td><td>Auto increment, Primary key</td></tr>
+<tr><td>Name</td><td>TEXT</td><td></td></tr>
+</table>
 
 # API
-Userテーブルの全データを出力
+* Userテーブルの全データを出力
+  - GET http://imaginaryshort.com:7000/
 
-GET http://imaginaryshort.com:7000/
+* 特定のHomeIdに属するUserのデータを出力
+  - GET http://imaginaryshort.com:7000/hid?hid={value}
 
-特定のHouseholdIdに属するUserのデータを出力
+* 特定のユーザのStatusをアップデートする
+  - GET http://imaginaryshort.com:7000/add?id={value}&status={value}&homeid={value}
 
-GET http://imaginaryshort.com:7000/hid?hid={value}
+* Homeテーブルの情報を出力
+  - GET http://imaginaryshort.com:7000/home/
 
-特定のユーザの状態をアップデートする
+* HomeテーブルにHomeを追加
+  - GET http://imaginaryshort.com:7000/home/add?name={value}
 
-GET http://imaginaryshort.com:7000/add?mynumber={value}&status={value}
+* Userテーブルの情報を出力
+  - GET http://imaginaryshort.com:7000/user/
 
-# Add sample data
-http://imaginaryshort.com:7000/add?id=1&name=test
+* HomeテーブルにHomeを追加
+  - GET http://imaginaryshort.com:7000/user/add?id={value}&name={value}&order={value}
