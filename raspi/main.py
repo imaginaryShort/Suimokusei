@@ -10,6 +10,12 @@ import time
 import RPi.GPIO as IO
 from neopixel import *
 
+import websocket
+import thread
+import time
+
+
+
 # LED branches config:
 LED_COUNT	= 5		#number of LEDs
 LED_PIN		= 18		#I/O pin definition to control LEDs
@@ -134,6 +140,21 @@ def parse_each_user_data(buf, userID):
 		if buf['users'][x]['Id'] is userID:
 			return buf['users'][x]
 
+
+
+def on_message(ws, message):
+    print message
+
+def on_error(ws, error):
+    print error
+
+def on_close(ws):
+    print "### closed ###"
+
+def on_open(ws):
+    ws.send("{\"UUID\": 13261369}")
+    #ws.close()
+
 def main():
 	schedule.every(0.5).minutes.do(stat_update)
 	#schedule.every(1).minutes.do(led_update)
@@ -145,6 +166,14 @@ def main():
 			neoPixelConfig.turnoff_all()
 			break
 
+
 neoPixelConfig = NeoPixelConfig()
 if __name__ == "__main__":
-	main()
+    websocket.enableTrace(True)
+    ws = websocket.WebSocketApp("ws://localhost:5000",
+                                on_message = on_message,
+                                on_error = on_error,
+                                on_close = on_close)
+    ws.on_open = on_open
+    ws.run_forever()
+    main()
