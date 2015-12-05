@@ -23,7 +23,7 @@ router.get('/add', function(req, res, next) {
   connection.query('INSERT INTO `Status` (SensorId, Status) VALUES (' + req.query.seid + ',\'' + req.query.status + '\') ON DUPLICATE KEY UPDATE Status = \'' + req.query.status + '\', Updated = CURRENT_TIMESTAMP', function (error, results, fields) {
     //res.send(JSON.stringify({results: results}));
     //Send notification
-    connection.query('SELECT `SuimokuseiId`, `UserId` FROM Sensor WHERE Id = ' + results["SensorId"], function (error, results, fields) {
+    connection.query('SELECT `SuimokuseiId`, `UserId` FROM Sensor WHERE Id = ' + req.query.seid, function (error, results, fields) {
 
       res.send(JSON.stringify({results: results}));
 
