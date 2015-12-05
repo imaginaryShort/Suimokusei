@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var user = require('./routes/user');
 var sensor = require('./routes/sensor');
+var status = require('./routes/status');
+
 var home = require('./routes/home');
 
 var app = express();
@@ -26,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/',        index);
 app.use('/user',    user);
 app.use('/sensor',  sensor);
+app.use('/status',  status);
 
 app.use('/home',    home);
 
