@@ -11,7 +11,7 @@ def on_close(ws):
     print "### closed ###"
 
 def on_open(ws):
-    ws.send("{\"UUID\": 13261369}")
+    ws.send("{\"UUID\": 1}")
     #ws.close()
 
 

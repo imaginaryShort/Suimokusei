@@ -29,7 +29,7 @@ ws_server.on('connection', function(client) {
 });
 
 ws_server.sendMessage = function(suid, message){
-  if(uuid in clients){
+  if(suid in clients){
     try {
       clients[suid].send(message);
     } catch(e) {
