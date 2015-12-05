@@ -9,11 +9,7 @@ var index = require('./routes/index');
 var user = require('./routes/user');
 var sensor = require('./routes/sensor');
 var status = require('./routes/status');
-
-var home = require('./routes/home');
-
 var app = express();
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,8 +25,6 @@ app.use('/',        index);
 app.use('/user',    user);
 app.use('/sensor',  sensor);
 app.use('/status',  status);
-
-app.use('/home',    home);
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
