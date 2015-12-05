@@ -25,6 +25,7 @@ router.get('/add', function(req, res, next) {
     connection.query('SELECT Sensor.SuimokuseiId, Sensor.UserId, User.Order FROM Sensor INNER JOIN User ON Sensor.UserId = User.Id WHERE Sensor.Id = ' + req.query.seid, function (error, results, fields) {
       results[0]["Status"] = req.query.status;
       res.send(JSON.stringify({results: results}));
+      ws.sendMessage(results[0]["SuimokuseiId"], results);
     });
   });
 });

@@ -28,10 +28,10 @@ ws_server.on('connection', function(client) {
     });
 });
 
-ws_server.sendMessage = function(uuid, message){
+ws_server.sendMessage = function(suid, message){
   if(uuid in clients){
     try {
-      clients[uuid].send(message);
+      clients[suid].send(message);
     } catch(e) {
       console.log(e);
     }
