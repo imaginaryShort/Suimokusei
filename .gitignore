@@ -19,3 +19,6 @@
 /android/Mochi/.gradle
 /android/Mochi/app/build/
 /android/Mochi/.DS_Store
+
+/scripts/fabfile.py
+/scripts/fabfile.pyc

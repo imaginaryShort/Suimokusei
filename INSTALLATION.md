@@ -1,4 +1,11 @@
 # ローカル開発環境
+デプロイツール: fabric
+
+```
+$ sudo pip install fabric
+```
+
+
 
 # Server
 ## Requirements
