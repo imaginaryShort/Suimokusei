@@ -1,0 +1,54 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kiterette.mochi.StartFragment"
+    android:id="@+id/startfragment"
+    android:background="@color/material_blue_grey_900">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:text="センサーを追加"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_above="@+id/button2"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:text="セットアップ"
+            android:id="@+id/startSetupButton"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_above="@+id/button"
+            android:layout_alignStart="@+id/button" />
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:text="設定"
+            android:id="@+id/button2"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Suimokusei"
+            android:id="@+id/textView2"
+            android:layout_marginTop="59dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="46dp"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+</FrameLayout>

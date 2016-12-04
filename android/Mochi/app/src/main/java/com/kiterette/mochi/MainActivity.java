@@ -21,9 +21,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class MainActivity extends Activity implements MainFragment.OnFragmentInteractionListener, UserFragment.OnFragmentInteractionListener, ShakeFragment.OnFragmentInteractionListener, SensorEventListener {
-    private MainFragment mainFragment;
-    private UserFragment userFragment;
+public class MainActivity extends Activity implements StartFragment.OnFragmentInteractionListener, SetupSuimokuseiFragment.OnFragmentInteractionListener, SetupUserFragment.OnFragmentInteractionListener, SensorEventListener {
+
+    private StartFragment startFragment;
+    private SetupSuimokuseiFragment setupSuimokuseiFragment;
+    private SetupUserFragment setupUserFragment;
+
     private String murl = "http://imaginaryshort.com:7000";
     private SensorManager manager;
     private int AccelThreshold = 5;
@@ -36,9 +39,10 @@ public class MainActivity extends Activity implements MainFragment.OnFragmentInt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         manager = (SensorManager)getSystemService(SENSOR_SERVICE);
-        mainFragment = new MainFragment();
+
+        startFragment = new StartFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.container, mainFragment);
+        transaction.add(R.id.fragmentContainer, startFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -57,26 +61,6 @@ public class MainActivity extends Activity implements MainFragment.OnFragmentInt
     protected void onStop() {
         super.onStop();
         manager.unregisterListener(this);
-    }
-
-    @Override
-    public void onNewButtonClick(String str) {
-        setTreeName(str);
-        nextFragment();
-    }
-
-    @Override
-    public void onAddButtonClick(String str) {
-        setTreeName(str);
-        nextFragment();
-    }
-
-    private void nextFragment(){
-        userFragment = new UserFragment();
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, userFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
     }
 
     private void setTreeName(final String name){
@@ -129,17 +113,6 @@ public class MainActivity extends Activity implements MainFragment.OnFragmentInt
     }
 
     @Override
-    public void onNextUserButtonClick(String name, String order) {
-        setUserName(name, order, "1");
-        ShakeFragment fragment = new ShakeFragment();
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-        sensorEnable = true;
-    }
-
-    @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             if (old_sensor_x != 0 || old_sensor_y != 0 || old_sensor_z != 0) {
@@ -177,6 +150,26 @@ public class MainActivity extends Activity implements MainFragment.OnFragmentInt
                 }
             }
         }).start();
+    }
+
+
+    @Override
+    public void onClickSetup() {
+        setupSuimokuseiFragment = new SetupSuimokuseiFragment();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer, setupSuimokuseiFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onNext() {
+        setupUserFragment = new SetupUserFragment();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer, setupUserFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
     }
 
     @Override

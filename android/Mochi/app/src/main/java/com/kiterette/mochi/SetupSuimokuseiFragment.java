@@ -7,14 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
-public class MainFragment extends Fragment {
-    private Button newButton, addButton;
-    private EditText treeName;
 
+public class SetupSuimokuseiFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
-    public MainFragment() {
+
+    public SetupSuimokuseiFragment() {
         // Required empty public constructor
     }
 
@@ -25,25 +23,14 @@ public class MainFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_select_suimokusei, container, false);
-        newButton = (Button)v.findViewById(R.id.new_button);
-        addButton = (Button)v.findViewById(R.id.add_button);
-        treeName = (EditText)v.findViewById(R.id.treeNameEditText);
-
-        newButton.setOnClickListener(new View.OnClickListener() {
+        View v = inflater.inflate(R.layout.fragment_setup_suimokusei, container, false);
+        Button setupSuimokuseiNextButton = (Button) v.findViewById(R.id.setupSuimokuseiNextButton);
+        setupSuimokuseiNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onNewButtonClick(treeName.getText().toString());
+                mListener.onNext();
             }
         });
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onAddButtonClick(treeName.getText().toString());
-            }
-        });
-
         return v;
     }
 
@@ -66,8 +53,7 @@ public class MainFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onNewButtonClick(String str);
-        public void onAddButtonClick(String str);
+        public void onNext();
     }
 
 }
